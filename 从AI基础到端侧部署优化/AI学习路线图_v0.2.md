@@ -1,6 +1,6 @@
 # AI 学习路线图：从基础理论到 Agent、推理框架与端侧硬件优化
 
-> **版本**：v0.2（2026-08-25 重写）
+> **版本**：v0.2.1（2026-08-30 调整章节顺序）
 > **定位**：个人 AI 技术栈总纲
 > **目标**：建立从 **AI 基础 → LLM / Agent → 推理 Runtime → AI Compiler → GPU / NPU → 端侧部署** 的完整知识体系，最终形成面向嵌入式与端侧 AI 的工程能力
 > **目标读者**：自己（传感器 / 嵌入式背景，向端侧 AI 工程师方向演进）
@@ -53,12 +53,14 @@ mindmap
         Backpropagation
       神经网络
         MLP / CNN / RNN / Attention
+      AI 框架
+        PyTorch / TensorFlow / TFLite / ONNX
       LLM
         Tokenizer / Embedding / Self-Attention
         Pretrain / SFT / LoRA / RLHF
-      AI 框架
-        PyTorch / TensorFlow / TFLite / ONNX
     第二部分：LLM 应用与推理 Runtime
+      LLM 推理原理
+        Chat Template / Prefill / Decode / KV Cache
       AI Agent
         Prompt / Tool Calling / Memory / RAG
         Planning / Workflow / Multi-Agent / MCP
@@ -90,25 +92,18 @@ mindmap
 ```mermaid
 flowchart TD
     A[AI 基本概念] --> B[机器学习]
-    B --> C[深度学习]
-    C --> D[Attention / Transformer]
-    D --> E[LLM]
+    B --> C[深度学习与神经网络]
+    C --> D[PyTorch / 模型框架]
+    D --> E[Attention / Transformer]
+    E --> F[LLM]
+    F --> G[LLM 推理原理]
+    G --> H[AI Agent / RAG]
+    H --> I[Inference Runtime 实现]
 
-    F[LLM] --> G1[LLM 应用]
-    F --> G2[LLM 推理]
-
-    G1 --> H1[RAG]
-    H1 --> H2[Tool Calling]
-    H2 --> H3[AI Agent]
-
-    G2 --> I1[PyTorch / TensorFlow]
-    I1 --> I2[ONNX / 模型导出]
-    I2 --> I3[Inference Runtime]
-
-    I3 --> J1[llama.cpp]
-    I3 --> J2[vLLM]
-    I3 --> J3[MLC-LLM]
-    I3 --> J4[ExecuTorch / TFLite]
+    I --> J1[llama.cpp]
+    I --> J2[vLLM]
+    I --> J3[MLC-LLM]
+    I --> J4[ExecuTorch / TFLite]
 
     J1 --> K[量化与性能优化]
     J2 --> K
@@ -150,8 +145,8 @@ flowchart TD
 |---|---|---|---|---|
 | 01 | [01_AI基础与机器学习](01_AI基础与机器学习.md) | AI 与经典机器学习入门 | 符号 AI、特征/标签/模型/参数、训练与推理、回归/分类/聚类、过拟合与泛化、评估指标、ML 工作流 | [AI-For-Beginners](https://github.com/microsoft/AI-For-Beginners) · [ML-For-Beginners](https://github.com/microsoft/ML-For-Beginners) |
 | 02 | [02_深度学习与神经网络](02_深度学习与神经网络.md) | 深度学习与神经网络 | 神经元、激活函数、MLP、Tensor、Batch/Epoch、反向传播、micrograd 拆黑盒 | [d2l-en](https://github.com/d2l-ai/d2l-en) · [micrograd](https://github.com/karpathy/micrograd) · [nn-zero-to-hero](https://github.com/karpathy/nn-zero-to-hero) |
-| 03 | [03_Transformer与LLM](03_Transformer与LLM.md) | Transformer 与 LLM | Tokenizer（BPE）、Embedding、Self-Attention、Transformer Block、Pretrain/SFT/LoRA/RLHF、从零训练小模型 | [LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch) · [minimind](https://github.com/jingyaogong/minimind) · [nanoGPT](https://github.com/karpathy/nanoGPT) · [minbpe](https://github.com/karpathy/minbpe) |
-| 04 | [04_PyTorch与模型框架](04_PyTorch与模型框架.md) | PyTorch 与模型格式 | Tensor/Dtype/Device/Stride、autograd、训练循环、框架/格式/Runtime/Compiler 四分法、ONNX、LiteRT | [pytorch](https://github.com/pytorch/pytorch) · [onnx](https://github.com/onnx/onnx) · [onnxruntime](https://github.com/microsoft/onnxruntime) · [executorch](https://github.com/pytorch/executorch) |
+| 03 | [03_PyTorch与模型框架](03_PyTorch与模型框架.md) | PyTorch 与模型格式 | Tensor/Dtype/Device/Stride、autograd、训练循环、框架/格式/Runtime/Compiler 四分法、ONNX、LiteRT | [pytorch](https://github.com/pytorch/pytorch) · [onnx](https://github.com/onnx/onnx) · [onnxruntime](https://github.com/microsoft/onnxruntime) · [executorch](https://github.com/pytorch/executorch) |
+| 04 | [04_Transformer与LLM](04_Transformer与LLM.md) | Transformer 与 LLM | Tokenizer（BPE）、Embedding、Self-Attention、Transformer Block、Pretrain/SFT/LoRA/RLHF、从零训练小模型 | [LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch) · [minimind](https://github.com/jingyaogong/minimind) · [nanoGPT](https://github.com/karpathy/nanoGPT) · [minbpe](https://github.com/karpathy/minbpe) |
 
 **第一部分完成标准**：能从 Tensor、神经网络、Attention 一路解释到一个 LLM 如何完成 Next Token Prediction；能独立跑通 PyTorch 训练循环并导出 ONNX。
 
@@ -161,8 +156,8 @@ flowchart TD
 
 | 章 | 文档 | 主题 | 核心概念 | 主仓库 |
 |---|---|---|---|---|
-| 05 | [05_AI_Agent与RAG](05_AI_Agent与RAG.md) | AI Agent 与 RAG | Agent Loop、Tool/Function Calling、Structured Output、Memory、RAG 链路、Workflow、Multi-Agent、MCP | [ai-agents-for-beginners](https://github.com/microsoft/ai-agents-for-beginners) · [agents-course](https://github.com/huggingface/agents-course) · [langgraph](https://github.com/langchain-ai/langgraph) · [MCP](https://github.com/modelcontextprotocol/modelcontextprotocol) |
-| 06 | [06_LLM推理原理](06_LLM推理原理.md) | LLM 推理原理 | Chat Template、Prefill/Decode、KV Cache、Memory-Bound、Arithmetic Intensity、TTFT、Throughput、Sampling | [llama.cpp](https://github.com/ggml-org/llama.cpp) · [vllm](https://github.com/vllm-project/vllm) |
+| 05 | [05_LLM推理原理](05_LLM推理原理.md) | LLM 推理原理 | Chat Template、Prefill/Decode、KV Cache、Memory-Bound、Arithmetic Intensity、TTFT、Throughput、Sampling | [llama.cpp](https://github.com/ggml-org/llama.cpp) · [vllm](https://github.com/vllm-project/vllm) |
+| 06 | [06_AI_Agent与RAG](06_AI_Agent与RAG.md) | AI Agent 与 RAG | Agent Loop、Tool/Function Calling、Structured Output、Memory、RAG 链路、Workflow、Multi-Agent、MCP | [ai-agents-for-beginners](https://github.com/microsoft/ai-agents-for-beginners) · [agents-course](https://github.com/huggingface/agents-course) · [langgraph](https://github.com/langchain-ai/langgraph) · [MCP](https://github.com/modelcontextprotocol/modelcontextprotocol) |
 | 07 | [07_llama.cpp](07_llama.cpp.md) | llama.cpp 深入 | ggml/GGUF、convert_hf_to_gguf、llama-quantize、Q4_K_M、CPU Inference、GPU Offload、Backend | [llama.cpp](https://github.com/ggml-org/llama.cpp) · [ggml](https://github.com/ggml-org/ggml) |
 | 08 | [08_vLLM与MLC-LLM](08_vLLM与MLC-LLM.md) | vLLM 与 MLC-LLM | Continuous Batching、PagedAttention、Scheduler、Serving vs 本地推理、MLC 编译跨平台部署 | [vllm](https://github.com/vllm-project/vllm) · [mlc-llm](https://github.com/mlc-ai/mlc-llm) |
 
@@ -221,38 +216,38 @@ flowchart TD
 |---|---|---|---|
 | [microsoft/AI-For-Beginners](https://github.com/microsoft/AI-For-Beginners) | AI 总览课程（历史/符号AI/NN/CV/NLP/RL），有中文版 | 01 | ⭐⭐⭐⭐ |
 | [microsoft/ML-For-Beginners](https://github.com/microsoft/ML-For-Beginners) | 经典机器学习 26 课（Scikit-learn），有中文版 | 01 | ⭐⭐⭐⭐⭐ |
-| [d2l-ai/d2l-en](https://github.com/d2l-ai/d2l-en) | 《Dive into Deep Learning》教材代码 | 02、03 | ⭐⭐⭐⭐ |
+| [d2l-ai/d2l-en](https://github.com/d2l-ai/d2l-en) | 《Dive into Deep Learning》教材代码 | 02、04 | ⭐⭐⭐⭐ |
 | [karpathy/micrograd](https://github.com/karpathy/micrograd) | 100 行实现 autograd，拆反向传播黑盒的最佳材料 | 02 | ⭐⭐⭐⭐⭐ |
-| [karpathy/nn-zero-to-hero](https://github.com/karpathy/nn-zero-to-hero) | Karpathy 神经网络系列课程 | 02、03 | ⭐⭐⭐⭐ |
-| [rasbt/LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch) | 从零实现一个小 GPT（配套同名书） | 03 | ⭐⭐⭐⭐⭐ |
-| [jingyaogong/minimind](https://github.com/jingyaogong/minimind) | 从零训练小型 LLM 的完整中文项目 | 03 | ⭐⭐⭐⭐ |
-| [karpathy/nanoGPT](https://github.com/karpathy/nanoGPT) | 极简但完整的 GPT 训练脚本 | 03 | ⭐⭐⭐ |
-| [karpathy/minbpe](https://github.com/karpathy/minbpe) | 极简 BPE Tokenizer 实现 | 03 | ⭐⭐⭐ |
-| [pytorch/pytorch](https://github.com/pytorch/pytorch) | 主训练框架 | 04 | ⭐⭐⭐⭐⭐ |
-| [tensorflow/tensorflow](https://github.com/tensorflow/tensorflow) | 了解级（SavedModel / 模型转换生态） | 04 | ⭐⭐ |
-| [keras-team/keras](https://github.com/keras-team/keras) | 高层 API 了解级 | 04 | ⭐⭐ |
-| [onnx/onnx](https://github.com/onnx/onnx) | 部署中间格式标准 | 04、09、11 | ⭐⭐⭐⭐⭐ |
-| [microsoft/onnxruntime](https://github.com/microsoft/onnxruntime) | 跨平台推理 Runtime（Execution Provider 机制） | 04、09 | ⭐⭐⭐⭐ |
-| [google-ai-edge/LiteRT](https://github.com/google-ai-edge/LiteRT) | TFLite 的演进版本，端侧推理 | 04 | ⭐⭐⭐ |
-| [google-ai-edge/litert-samples](https://github.com/google-ai-edge/litert-samples) | LiteRT 示例 | 04 | ⭐⭐ |
-| [pytorch/executorch](https://github.com/pytorch/executorch) | PyTorch 官方端侧推理方案 | 04 | ⭐⭐⭐ |
-| [lutzroeder/netron](https://github.com/lutzroeder/netron) | 模型可视化工具（看 ONNX/rknn 结构必备） | 04、11 | ⭐⭐⭐⭐ |
+| [karpathy/nn-zero-to-hero](https://github.com/karpathy/nn-zero-to-hero) | Karpathy 神经网络系列课程 | 02、04 | ⭐⭐⭐⭐ |
+| [rasbt/LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch) | 从零实现一个小 GPT（配套同名书） | 04 | ⭐⭐⭐⭐⭐ |
+| [jingyaogong/minimind](https://github.com/jingyaogong/minimind) | 从零训练小型 LLM 的完整中文项目 | 04 | ⭐⭐⭐⭐ |
+| [karpathy/nanoGPT](https://github.com/karpathy/nanoGPT) | 极简但完整的 GPT 训练脚本 | 04 | ⭐⭐⭐ |
+| [karpathy/minbpe](https://github.com/karpathy/minbpe) | 极简 BPE Tokenizer 实现 | 04 | ⭐⭐⭐ |
+| [pytorch/pytorch](https://github.com/pytorch/pytorch) | 主训练框架 | 03 | ⭐⭐⭐⭐⭐ |
+| [tensorflow/tensorflow](https://github.com/tensorflow/tensorflow) | 了解级（SavedModel / 模型转换生态） | 03 | ⭐⭐ |
+| [keras-team/keras](https://github.com/keras-team/keras) | 高层 API 了解级 | 03 | ⭐⭐ |
+| [onnx/onnx](https://github.com/onnx/onnx) | 部署中间格式标准 | 03、09、11 | ⭐⭐⭐⭐⭐ |
+| [microsoft/onnxruntime](https://github.com/microsoft/onnxruntime) | 跨平台推理 Runtime（Execution Provider 机制） | 03、09 | ⭐⭐⭐⭐ |
+| [google-ai-edge/LiteRT](https://github.com/google-ai-edge/LiteRT) | TFLite 的演进版本，端侧推理 | 03 | ⭐⭐⭐ |
+| [google-ai-edge/litert-samples](https://github.com/google-ai-edge/litert-samples) | LiteRT 示例 | 03 | ⭐⭐ |
+| [pytorch/executorch](https://github.com/pytorch/executorch) | PyTorch 官方端侧推理方案 | 03 | ⭐⭐⭐ |
+| [lutzroeder/netron](https://github.com/lutzroeder/netron) | 模型可视化工具（看 ONNX/rknn 结构必备） | 03、11 | ⭐⭐⭐⭐ |
 
 ### 第二部分：LLM 应用与推理 Runtime（05–08 章）
 
 | 仓库 | 一句话定位 | 主要使用章节 | 优先级 |
 |---|---|---|---|
-| [microsoft/ai-agents-for-beginners](https://github.com/microsoft/ai-agents-for-beginners) | 微软 Agent 入门课程 | 05 | ⭐⭐⭐⭐ |
-| [huggingface/agents-course](https://github.com/huggingface/agents-course) | HF 官方 Agents 课程 | 05 | ⭐⭐⭐⭐ |
-| [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | LLM 应用框架（生态最大） | 05 | ⭐⭐⭐ |
-| [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | 基于图的状态机式 Agent 编排 | 05 | ⭐⭐⭐⭐ |
-| [langchain-ai/docs](https://github.com/langchain-ai/docs) | LangChain 官方文档 | 05 | ⭐⭐ |
-| [modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | MCP 协议规范 | 05 | ⭐⭐⭐⭐ |
-| [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | MCP Python SDK | 05 | ⭐⭐⭐ |
-| [modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers) | MCP 官方参考 Server 集合 | 05 | ⭐⭐⭐ |
-| [ggml-org/llama.cpp](https://github.com/ggml-org/llama.cpp) | C++ 实现的 LLM 推理引擎，本地/端侧部署事实标准 | 06、07 | ⭐⭐⭐⭐⭐ |
+| [microsoft/ai-agents-for-beginners](https://github.com/microsoft/ai-agents-for-beginners) | 微软 Agent 入门课程 | 06 | ⭐⭐⭐⭐ |
+| [huggingface/agents-course](https://github.com/huggingface/agents-course) | HF 官方 Agents 课程 | 06 | ⭐⭐⭐⭐ |
+| [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | LLM 应用框架（生态最大） | 06 | ⭐⭐⭐ |
+| [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | 基于图的状态机式 Agent 编排 | 06 | ⭐⭐⭐⭐ |
+| [langchain-ai/docs](https://github.com/langchain-ai/docs) | LangChain 官方文档 | 06 | ⭐⭐ |
+| [modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | MCP 协议规范 | 06 | ⭐⭐⭐⭐ |
+| [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | MCP Python SDK | 06 | ⭐⭐⭐ |
+| [modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers) | MCP 官方参考 Server 集合 | 06 | ⭐⭐⭐ |
+| [ggml-org/llama.cpp](https://github.com/ggml-org/llama.cpp) | C++ 实现的 LLM 推理引擎，本地/端侧部署事实标准 | 05、07 | ⭐⭐⭐⭐⭐ |
 | [ggml-org/ggml](https://github.com/ggml-org/ggml) | llama.cpp 底层 Tensor 库 | 07 | ⭐⭐⭐⭐ |
-| [vllm-project/vllm](https://github.com/vllm-project/vllm) | 高吞吐 LLM Serving 引擎（PagedAttention） | 06、08 | ⭐⭐⭐⭐ |
+| [vllm-project/vllm](https://github.com/vllm-project/vllm) | 高吞吐 LLM Serving 引擎（PagedAttention） | 05、08 | ⭐⭐⭐⭐ |
 | [mlc-ai/mlc-llm](https://github.com/mlc-ai/mlc-llm) | 基于 TVM 的 LLM 编译部署栈，通向 Compiler 的桥梁 | 08 | ⭐⭐⭐⭐⭐ |
 
 ### 第三部分：AI Compiler、Kernel 与端侧硬件（09–13 章）
@@ -280,13 +275,17 @@ AI 基础
   ↓
 Deep Learning
   ↓
+PyTorch / 模型框架
+  ↓
 Transformer
   ↓
 LLM
   ↓
-Agent
+LLM 推理原理
   ↓
-LLM Runtime
+Agent / RAG
+  ↓
+LLM Runtime 实现
   ↓
 Quantization
   ↓
@@ -331,7 +330,7 @@ RK3576
 
 | 量化主题 | 所在章节 |
 |---|---|
-| LLM 推理中的量化动机与精度格式 | 06（LLM 推理原理） |
+| LLM 推理中的量化动机与精度格式 | 05（LLM 推理原理） |
 | GGUF / Q4_K_M / llama-quantize 实操 | 07（llama.cpp） |
 | Quantization Compiler（Scale/Zero Point/Dtype Propagation） | 09（AI Compiler 与 TVM） |
 | RKNN 量化（Calibration / 量化失败定位） | 11（RKNN 与 Rockchip NPU） |
@@ -348,10 +347,10 @@ RK3576
 ```text
 01_AI基础与机器学习.md
 02_深度学习与神经网络.md
-03_Transformer与LLM.md
-04_PyTorch与模型框架.md
-05_AI_Agent与RAG.md
-06_LLM推理原理.md
+03_PyTorch与模型框架.md
+04_Transformer与LLM.md
+05_LLM推理原理.md
+06_AI_Agent与RAG.md
 07_llama.cpp.md
 08_vLLM与MLC-LLM.md
 09_AI_Compiler与TVM.md
@@ -369,3 +368,4 @@ RK3576
 |---|---|---|
 | v0.1 | 2026-08-25 | 初版：三阶段学习树 + 31 节总纲 |
 | v0.2 | 2026-08-25 | ① 合并原 09/10 两版《AI_Compiler与TVM》为一章（370 节）；② 章节重编号：GPU Kernel→10、RKNN→11、RKLLM→12、RK3576→13，17 处交叉引用同步修正；③ 量化不单独成章的说明；④ 01 章改写为教科书式教程（试点）；⑤ 新增"全部核心仓库一览"（30 个仓库，按阶段排列） |
+| v0.2.1 | 2026-08-30 | 调整 03–06 章学习顺序：PyTorch 与模型框架 → Transformer 与 LLM → LLM 推理原理 → AI Agent 与 RAG，并同步更新全仓库交叉引用 |

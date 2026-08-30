@@ -3,7 +3,7 @@
 > **所属路线**：AI 学习路线 · 第二部分
 > **本章定位**：从 LLM 推理原理，进入第一个真正的 C/C++ Runtime，理解 GGUF、ggml、量化、计算图、Backend、KV Cache、Sampling 是如何在 llama.cpp 里落地的
 > **核心仓库**：[ggml-org/llama.cpp](https://github.com/ggml-org/llama.cpp)
-> **前置要求**：已理解第 6 章的 Prefill/Decode、KV Cache、量化对 Decode 的作用
+> **前置要求**：已理解第 5 章的 Prefill/Decode、KV Cache、量化对 Decode 的作用
 > **学习边界**：本章聚焦 llama.cpp 这个 Runtime 本身；vLLM/MLC-LLM、AI Compiler、FlashAttention/CUTLASS、RKNN/RKLLM 在后续章节展开
 > **资料检查日期**：2026-08-25
 
@@ -11,7 +11,7 @@
 
 ## 本章导读
 
-第 6 章我们弄懂了 LLM 推理「为什么」这样运行。这一章回答「怎么」——一个真正的 Runtime 是如何把模型加载进来、构建计算图、跑量化 Kernel、管理 KV Cache、采样输出的。
+第 5 章我们弄懂了 LLM 推理「为什么」这样运行。这一章回答「怎么」——一个真正的 Runtime 是如何把模型加载进来、构建计算图、跑量化 Kernel、管理 KV Cache、采样输出的。
 
 llama.cpp 是理解这一切最好的教材：它用纯 C/C++ 实现，不依赖 PyTorch，却能跑通主流 LLM，还横跨 CPU/GPU/多平台。对有小谢这样嵌入式背景的人，它更是把「LLM 理论」和「C/C++、CMake、线程、内存、SIMD、mmap」这些熟悉的东西连起来的桥梁。
 
@@ -168,7 +168,7 @@ Quantization（量化） 高精度 Tensor → 低比特量化 Tensor
 
 ### 6.4 不能只按文件大小选 Quant
 
-还要看 Perplexity/质量、PP 速度、TG 速度、Backend 支持、Kernel 速度。一个反直觉现象：**更低的 BPW 不一定让 Prompt Processing 更快**（受 Kernel 效率、反量化影响），但 **Text Generation 通常对权重大小非常敏感**——这正是第 6 章「Decode Memory-Bound」的落地。
+还要看 Perplexity/质量、PP 速度、TG 速度、Backend 支持、Kernel 速度。一个反直觉现象：**更低的 BPW 不一定让 Prompt Processing 更快**（受 Kernel 效率、反量化影响），但 **Text Generation 通常对权重大小非常敏感**——这正是第 5 章「Decode Memory-Bound」的落地。
 
 ---
 
@@ -194,7 +194,7 @@ flowchart TD
     M --> C["context C"]
 ```
 
-> **为什么分开？** 同一份模型权重可以服务多个会话，每个 Context 有自己的 KV 状态和序列。这和第 6 章「一个权重、多序列」的服务器思想一脉相承。
+> **为什么分开？** 同一份模型权重可以服务多个会话，每个 Context 有自己的 KV 状态和序列。这和第 5 章「一个权重、多序列」的服务器思想一脉相承。
 
 ---
 
@@ -232,7 +232,7 @@ flowchart TD
 
 ## 10. PP Graph 与 TG Graph：Prefill/Decode 的源码落地
 
-第 6 章讲的 Prefill/Decode 分界，在 llama.cpp 源码里体现为 **分别 reserve 两张图**：
+第 5 章讲的 Prefill/Decode 分界，在 llama.cpp 源码里体现为 **分别 reserve 两张图**：
 
 ```text
 PP Graph（Prompt Processing）  n_tokens ≈ min(n_ctx, n_ubatch)，较大

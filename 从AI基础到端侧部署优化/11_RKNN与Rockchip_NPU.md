@@ -3,7 +3,7 @@
 > **所属路线**：AI 学习路线 · 第三部分
 > **本章定位**：把前面所有通用知识（Compiler、Kernel、量化、内存层级）落到 Rockchip 的 Vendor NPU 上，理解 RKNN 生态、`.rknn` 转换、量化、Tensor Layout、板端 Runtime
 > **核心仓库**：[RKNN-Toolkit2](https://github.com/airockchip/rknn-toolkit2) · [RKNN Model Zoo](https://github.com/airockchip/rknn_model_zoo)
-> **前置要求**：已理解第 4 章 ONNX、第 9 章 AI Compiler、第 10 章 GPU Kernel/量化
+> **前置要求**：已理解第 3 章 ONNX、第 9 章 AI Compiler、第 10 章 GPU Kernel/量化
 > **学习边界**：本章聚焦视觉/CNN 类模型的 RKNN 部署；LLM 的 RKLLM 单独在第 12 章
 > **资料检查日期**：2026-08-25
 
@@ -100,7 +100,7 @@ flowchart LR
 
 `config(mean_values=..., std_values=...)` 把归一化**编译进模型**。这意味着：
 
-> ⚠️ **转换前必须建立 Preprocess Contract**：训练时的 Resize/RGB-BGR/Normalize/Layout 必须和部署时完全一致，否则权重对了、预处理错了，输出照样全错（这是第 4 章「部署六道坎」的第一道）。
+> ⚠️ **转换前必须建立 Preprocess Contract**：训练时的 Resize/RGB-BGR/Normalize/Layout 必须和部署时完全一致，否则权重对了、预处理错了，输出照样全错（这是第 3 章「部署六道坎」的第一道）。
 
 ---
 

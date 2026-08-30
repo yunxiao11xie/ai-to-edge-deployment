@@ -3,7 +3,7 @@
 > **所属路线**：AI 学习路线 · 第三部分
 > **本章定位**：把 LLM 部署到 Rockchip NPU 上，理解 RKLLM 工具链、`.rkllm` 转换、W4A16 量化、Runtime 生命周期，以及端侧 LLM 系统的分层优化
 > **核心仓库**：[RKLLM](https://github.com/airockchip/rknn-llm)
-> **前置要求**：已理解第 3 章 Transformer、第 6 章 Prefill/Decode/KV Cache、第 11 章 RKNN
+> **前置要求**：已理解第 4 章 Transformer、第 5 章 Prefill/Decode/KV Cache、第 11 章 RKNN
 > **学习边界**：本章聚焦 RKLLM（LLM 专用工具链）；普通视觉模型的 RKNN 已在第 11 章
 > **资料检查日期**：2026-08-25
 
@@ -28,7 +28,7 @@
 7. 为什么 Decode TPS 会随 Context 增长而下降？为什么 W4A16 在 Decode 上特别占优？
 8. 为什么「HF 能跑」不代表「RKLLM 一定能跑」？
 
-**学习方法**：把第 6 章（Prefill/Decode/KV Cache/内存带宽）和第 11 章（Vendor Compiler）的知识直接套到 RKLLM 上。RKLLM 就是「Vendor LLM Runtime + 专用量化 + NPU 编译器」的组合。
+**学习方法**：把第 5 章（Prefill/Decode/KV Cache/内存带宽）和第 11 章（Vendor Compiler）的知识直接套到 RKLLM 上。RKLLM 就是「Vendor LLM Runtime + 专用量化 + NPU 编译器」的组合。
 
 ---
 
@@ -99,7 +99,7 @@ LLM Runtime 演进极快（当前 v1.3.0 就有 long-context decode 优化、多
 
 ### 3.1 为什么端侧 LLM 特别喜欢 W4A16
 
-第 6 章讲过：Decode 是 Memory-Bound，瓶颈是**读权重**。W4A16 让权重从 FP16 降到 4-bit：
+第 5 章讲过：Decode 是 Memory-Bound，瓶颈是**读权重**。W4A16 让权重从 FP16 降到 4-bit：
 
 ```text
 权重内存 ↓（能装进板子）+ 每 Token 搬的权重字节 ↓（Decode 提速）
@@ -188,7 +188,7 @@ Decode  → TPS（每秒 Token 数）
 
 ### 7.2 为什么 Decode TPS 随 Context 增长而下降
 
-Context 越长，每步 Decode 要读的 KV 越多，Attention 部分越贵（第 6 章已讲）。
+Context 越长，每步 Decode 要读的 KV 越多，Attention 部分越贵（第 5 章已讲）。
 
 ### 7.3 为什么 W4A16 在 Decode 特别占优
 

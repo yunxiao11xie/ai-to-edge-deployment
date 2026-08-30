@@ -1,10 +1,10 @@
-# 第 4 章 PyTorch 与模型框架
+# 第 3 章 PyTorch 与模型框架
 
 > **所属路线**：AI 学习路线 · 第一部分
 > **本章定位**：理解主流 AI 框架如何定义模型、组织数据、完成训练、保存权重、导出计算图，并最终进入跨平台 Runtime 与端侧部署
 > **核心框架**：PyTorch
 > **辅助框架与模型表示**：TensorFlow / Keras、LiteRT（TensorFlow Lite 后继）、ONNX、ONNX Runtime、ExecuTorch
-> **前置要求**：第 2、3 章（神经网络与 Transformer）已完成
+> **前置要求**：第 2 章（深度学习与神经网络）已完成
 > **学习边界**：本章解决"Framework → Model → Graph → Export → Runtime"的工程链路；量化算法、AI Compiler、GPU Kernel、RKNN/RKLLM 在后续章节深入
 > **资料检查日期**：2026-08-25
 
@@ -12,7 +12,7 @@
 
 ## 本章导读
 
-前三章回答"模型是什么、怎么训练、怎么工作"；这一章回答一个完全不同的问题：
+前两章回答了“模型是什么、为什么能够学习”；这一章把这些原理落到真实软件框架中：
 
 > **一个训练好的模型，在真实软件栈里是怎么被表示、保存、导出，最终跑到 CPU / GPU / NPU 上的？**
 
@@ -675,8 +675,9 @@ ExecuTorch      = 理解 PyTorch Native Edge Path
 
 ## 18. 与前后章节的关系
 
-- **与前三章**：01 讲机器学习是什么、02 讲神经网络如何训练、03 讲 Transformer/LLM 如何工作；本章讲**这些模型在真实软件框架里如何表示、训练、保存、导出和运行**——是"理论 AI → AI Systems"的第一座桥；
-- **与后续 Runtime**：本章已建立 Model / Graph / Operator / Runtime / Backend；第二部分进入 Agent、llama.cpp、vLLM、MLC-LLM——llama.cpp 会让你看到"不通过 PyTorch 也能直接实现一套 LLM Runtime"；
+- **与前两章**：01 讲机器学习是什么，02 讲神经网络如何训练；本章讲**这些模型在真实软件框架里如何表示、训练、保存、导出和运行**——是“理论 AI → AI Systems”的第一座桥；
+- **与下一章**：Tensor、`nn.Module`、Autograd、训练循环与模型文件，是阅读和实现 Transformer / LLM 的直接工具基础；
+- **与后续 Runtime**：本章已建立 Model / Graph / Operator / Runtime / Backend；后续 llama.cpp 会让你看到“不通过 PyTorch 也能直接实现一套 LLM Runtime”；
 - **与 AI Compiler**：模型变成 Graph 后，自然会问：图能优化什么？算子能融合吗？怎么 Lower 到硬件？怎么选 Kernel？怎么 CodeGen？——这就是第 9 章的 AI Compiler；
 - **与 RKNN**：最终 Rockchip 路线 `PyTorch → ONNX → RKNN-Toolkit2 → 图/算子分析 → 量化 → NPU 编译 → .rknn → RKNN Runtime → RK3576`，本章实际已经学完了前两步最核心的抽象。
 
@@ -684,13 +685,11 @@ ExecuTorch      = 理解 PyTorch Native Edge Path
 
 ## 19. 下一章预告
 
-第一部分到此完成。我们掌握了模型从理论到框架的全貌，下一步进入"怎么用模型"：
-
-> **把 LLM 变成能执行任务的系统（Agent / RAG / Tool Calling），以及让它真正高效运行（llama.cpp / vLLM / MLC-LLM）。**
+我们已经掌握如何用 PyTorch 表达神经网络。下一步沿着第 2 章留下的序列建模问题，学习一种由 Embedding、Attention、MLP、归一化和残差连接组成的现代模型结构。
 
 下一章：
 
-> **[05_AI_Agent与RAG](05_AI_Agent与RAG.md)**
+> **[04_Transformer与LLM](04_Transformer与LLM.md)**
 
 ---
 

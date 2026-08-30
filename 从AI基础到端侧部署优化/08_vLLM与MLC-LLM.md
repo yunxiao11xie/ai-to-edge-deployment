@@ -3,7 +3,7 @@
 > **所属路线**：AI 学习路线 · 第二部分
 > **本章定位**：在理解推理原理与 llama.cpp 之后，学习两种截然不同的高性能 Runtime 思想——vLLM 的「Serving / Scheduling 路线」与 MLC-LLM 的「ML Compilation / 跨平台部署路线」
 > **核心仓库**：[vllm-project/vllm](https://github.com/vllm-project/vllm) · [mlc-ai/mlc-llm](https://github.com/mlc-ai/mlc-llm)
-> **前置要求**：已理解第 6 章 Prefill/Decode/KV Cache、第 7 章 llama.cpp 的 Runtime 抽象
+> **前置要求**：已理解第 5 章 Prefill/Decode/KV Cache、第 7 章 llama.cpp 的 Runtime 抽象
 > **学习边界**：本章聚焦 Runtime 架构、Scheduler、KV 管理与编译驱动部署；TVM、TIR、GPU Kernel、FlashAttention 在第 9、10 章深入
 > **资料检查日期**：2026-08-25
 

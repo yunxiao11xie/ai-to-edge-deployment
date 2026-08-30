@@ -1,10 +1,10 @@
-# 第 5 章 AI Agent 与 RAG
+# 第 6 章 AI Agent 与 RAG
 
 > **所属路线**：AI 学习路线 · 第二部分
 > **本章定位**：理解如何在 LLM 之上构建具备外部知识、工具调用、状态管理、规划执行与反馈闭环的 AI Agent 系统
 > **核心教材**：[microsoft/ai-agents-for-beginners](https://github.com/microsoft/ai-agents-for-beginners) · [huggingface/agents-course](https://github.com/huggingface/agents-course) · [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph)
 > **关键扩展**：LangChain、LlamaIndex、smolagents、Model Context Protocol（MCP）
-> **前置要求**：第 3 章（Transformer / LLM）已完成
+> **前置要求**：第 4 章（Transformer / LLM）与第 5 章（LLM 推理原理）已完成
 > **学习边界**：本章解决 RAG / Tool Calling / Agent / Workflow / Memory / MCP / Agentic RAG；LLM Runtime、llama.cpp、vLLM、MLC-LLM 在后续章节深入
 > **资料检查日期**：2026-08-25
 
@@ -12,7 +12,7 @@
 
 ## 本章导读
 
-前三章讲"模型"，本章讲"**怎么用模型**"。
+前四章讲清了“模型”，第 5 章讲清了“模型如何推理”；本章开始讲“**怎么用模型完成任务**”。
 
 > **Agent 的智能不在 Transformer 内部，而在模型外部的软件系统里。** 它没有改变 LLM 的结构，改变的是：把 LLM 放进一个能"决策 → 行动 → 观察 → 更新状态 → 再决策"的循环里。
 
@@ -694,7 +694,7 @@ Agent vs Workflow / Tool Calling / Agent Loop / State / RAG Pipeline / Chunking 
 
 ## 16. 与前后章节的关系
 
-- **与 LLM**：Agent 没有改变 Transformer 内部结构，改变的是 LLM 外部的软件系统；
+- **与 LLM 推理**：Agent 没有改变 Transformer 内部结构，也不替代 LLM Runtime；它在推理接口之上组织模型调用、工具执行、检索与状态循环；
 - **与后续 Runtime**：Agent 框架不在乎 LLM 来自 Cloud API / vLLM / llama.cpp / Ollama / RKLLM，只要有 Chat / Completion / Tool Calling 接口就能接。Agent 每个 Task 会多次调用 LLM——高并发场景正是 vLLM 的用武之地；
 - **与端侧**：Local Qwen + Local RAG + Tool Calling + Optional MCP 与后面的 llama.cpp / RKLLM / RK3576 直接衔接。
 
@@ -702,13 +702,13 @@ Agent vs Workflow / Tool Calling / Agent Loop / State / RAG Pipeline / Chunking 
 
 ## 17. 下一章预告
 
-Agent 让 LLM 会"用工具"，但 Agent 跑得快不快，取决于背后那个 LLM Runtime：
+我们已经知道 Agent 如何在 LLM 外部组织工具、知识和状态。下一步重新向下进入 Runtime，实现第 5 章讲过的加载、Prefill、KV Cache、Decode 与量化执行：
 
-> **一个 LLM 从模型文件加载，到 Prefill、KV Cache、Decode，再到生成 Token 的完整推理流程，到底是怎么实现的？**
+> **llama.cpp 具体是怎么把 GGUF 加载进来、用 ggml 构建计算图、跑量化 Kernel、管理 KV Cache 的？**
 
 下一章：
 
-> **[06_LLM推理原理](06_LLM推理原理.md)**
+> **[07_llama.cpp](07_llama.cpp.md)**
 
 ---
 

@@ -1,9 +1,9 @@
-# 第 6 章 LLM 推理原理
+# 第 5 章 LLM 推理原理
 
 > **所属路线**：AI 学习路线 · 第二部分
 > **本章定位**：从一个训练好的 Decoder-only LLM 出发，把「用户输入一句话」到「模型逐字输出」的完整推理链路彻底拆开，并理解它为什么这样跑、瓶颈在哪里
 > **核心参考**：[ggml-org/llama.cpp](https://github.com/ggml-org/llama.cpp) · [vllm-project/vllm](https://github.com/vllm-project/vllm) · Hugging Face Transformers · NVIDIA LLM Inference Optimization
-> **前置要求**：已理解第 3 章 Transformer / LLM 的基本结构与自回归生成
+> **前置要求**：已理解第 4 章 Transformer / LLM 的基本结构与自回归生成
 > **学习边界**：本章解决「LLM 推理为什么这样运行」；llama.cpp、vLLM、MLC-LLM 的具体源码与工程实现放在第 7、8 章
 > **资料检查日期**：2026-08-25
 
@@ -11,7 +11,7 @@
 
 ## 本章导读
 
-第 3 章我们弄懂了 LLM 是怎么构成的，但有一个问题一直悬着：
+第 4 章我们弄懂了 LLM 是怎么构成的，但有一个问题一直悬着：
 
 > **模型文件就躺在硬盘上，当你敲下一句话，从字符串到屏幕上第一个字，中间到底发生了什么？**
 
@@ -368,7 +368,7 @@ KV bytes ≈ 2 × Layers × Sequence Length × KV Heads × Head Dim × Bytes/Ele
 
 ### 10.2 为什么减少 KV 头就能省内存
 
-KV Cache 的内存直接和 KV Heads 成正比。GQA 减少 KV 头数 → KV Cache 变小 → **Decode 时读 KV 的内存流量也下降**。这就是现代推理模型如此重视 GQA 的原因（第 3 章已埋过伏笔）。
+KV Cache 的内存直接和 KV Heads 成正比。GQA 减少 KV 头数 → KV Cache 变小 → **Decode 时读 KV 的内存流量也下降**。这就是现代推理模型如此重视 GQA 的原因（第 4 章已埋过伏笔）。
 
 ---
 
@@ -704,13 +704,11 @@ for _ in range(max_new_tokens):
 
 ## 23. 下一章预告
 
-本章我们建立了整条推理链的「为什么」。但还有一个更底层的问题没回答：
+本章已经把 LLM 的生成过程、状态和性能瓶颈拆清楚了。现在向上走一层，看看如何围绕 LLM 组织外部知识、工具、状态与执行循环，把“生成 Token 的模型”变成“能够完成任务的系统”。
 
-> **llama.cpp 具体是怎么把 GGUF 加载进来、用 ggml 构建计算图、跑量化 Kernel、管理 KV Cache 的？**
+下一章进入应用层：
 
-下一章深入第一个真正的 Runtime：
-
-> **[07_llama.cpp](07_llama.cpp.md)**
+> **[06_AI_Agent与RAG](06_AI_Agent与RAG.md)**
 
 ---
 

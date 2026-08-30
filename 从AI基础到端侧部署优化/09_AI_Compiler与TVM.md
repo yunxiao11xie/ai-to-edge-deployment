@@ -4,7 +4,7 @@
 > **本章定位**：从 LLM Runtime 继续下钻，理解模型如何从 Framework/Graph 经过 IR、图优化、张量程序、Schedule、Lowering、CodeGen，最终变成 CPU/GPU/NPU 上执行的代码
 > **核心仓库**：[apache/tvm](https://github.com/apache/tvm)
 > **核心抽象**：Relax + TensorIR（当前主线进一步拆分为 `tirx` + `s_tir`）
-> **前置要求**：已理解第 4 章 ONNX/图/算子、第 6 章 Memory-Bound/Arithmetic Intensity、第 8 章 MLC 的 Relax IR
+> **前置要求**：已理解第 3 章 ONNX/图/算子、第 5 章 Memory-Bound/Arithmetic Intensity、第 8 章 MLC 的 Relax IR
 > **学习边界**：本章解决 AI Compiler 总体架构与 TVM 核心机制；FlashAttention、Triton、CUTLASS、GPU Kernel 在下一章深入，RKNN/RKLLM 用于理解 Vendor NPU Compiler/Runtime
 > **版本说明**：本章由 09/10 两版《AI_Compiler与TVM》笔记合并而成，以 09 版为基线吸收 10 版独有内容
 > **资料检查日期**：2026-08-25
@@ -186,7 +186,7 @@ for i in range(M):
 
 ### 7.1 回到 Arithmetic Intensity
 
-第 6 章讲过：性能瓶颈分 Memory-Bound 和 Compute-Bound。Compiler 能做的最重要的事，就是**通过 Tiling 提高数据复用，减少内存搬运**。
+第 5 章讲过：性能瓶颈分 Memory-Bound 和 Compute-Bound。Compiler 能做的最重要的事，就是**通过 Tiling 提高数据复用，减少内存搬运**。
 
 ### 7.2 内存层级
 
@@ -358,7 +358,7 @@ flowchart TD
     J --> K["Step 11: Runtime<br/>执行"]
 ```
 
-> **为什么 Compiler 不能只优化 FLOPs？** 因为速度差异往往来自 **Data Movement（数据搬运）**，而非纯计算——这正是第 6 章 Memory-Bound 的再现。Tiling 之所以是核心，就是因为它控制「多少数据留在片上、多少要去慢速内存」。
+> **为什么 Compiler 不能只优化 FLOPs？** 因为速度差异往往来自 **Data Movement（数据搬运）**，而非纯计算——这正是第 5 章 Memory-Bound 的再现。Tiling 之所以是核心，就是因为它控制「多少数据留在片上、多少要去慢速内存」。
 
 ---
 

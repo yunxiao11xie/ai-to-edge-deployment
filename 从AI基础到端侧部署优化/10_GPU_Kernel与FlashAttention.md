@@ -3,7 +3,7 @@
 > **所属路线**：AI 学习路线 · 第三部分
 > **本章定位**：从 AI Compiler 继续下钻到 Kernel 层，理解 GPU 的执行模型、内存层级、GEMM 优化，以及 FlashAttention 如何用「算法-系统协同设计」解决 Attention 的内存搬运问题
 > **核心资料**：[NVIDIA CUDA Programming Guide](https://docs.nvidia.com/cuda/cuda-c-programming-guide/) · [Triton](https://github.com/triton-lang/triton) · [FlashAttention](https://github.com/Dao-AILab/flash-attention) · [CUTLASS](https://github.com/NVIDIA/cutlass)
-> **前置要求**：已理解第 6 章 Memory-Bound/Arithmetic Intensity、第 9 章 TVM 的 Schedule/Tiling/Tensorization
+> **前置要求**：已理解第 5 章 Memory-Bound/Arithmetic Intensity、第 9 章 TVM 的 Schedule/Tiling/Tensorization
 > **学习边界**：本章聚焦 GPU Kernel 与 FlashAttention；CUTLASS 讲清思想，不要求手写完整 Kernel；TMA/WGMMA 等 Hopper/Blackwell 高级特性只了解位置
 > **资料检查日期**：2026-08-25
 
@@ -115,7 +115,7 @@ Shared Memory 被分成若干 Bank，同一 Warp 内多个线程访问**同一�
 
 ## 3. Compute-bound 与 Memory-bound（再联系）
 
-第 6 章的概念在这里落地：
+第 5 章的概念在这里落地：
 
 - **Vector Add**：几乎只搬数据 → Memory-bound；
 - **GEMM**：大量乘加 → 通常 Compute-bound（前提是数据复用做得好）；

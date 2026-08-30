@@ -21,13 +21,13 @@
 1. [AI 基础与机器学习](./从AI基础到端侧部署优化/01_AI基础与机器学习.md)
    - [公开实验室](./labs/01_ai_basics_ml/README.md) · [完整实验](./labs/01_ai_basics_ml/完整实验.ipynb) · [练习](./labs/01_ai_basics_ml/练习.ipynb) · [真实任务](./labs/01_ai_basics_ml/真实任务_设备故障预警.md)
 2. [深度学习与神经网络](./从AI基础到端侧部署优化/02_深度学习与神经网络.md)
-3. [Transformer 与 LLM](./从AI基础到端侧部署优化/03_Transformer与LLM.md)
-4. [PyTorch 与模型框架](./从AI基础到端侧部署优化/04_PyTorch与模型框架.md)
+3. [PyTorch 与模型框架](./从AI基础到端侧部署优化/03_PyTorch与模型框架.md)
+4. [Transformer 与 LLM](./从AI基础到端侧部署优化/04_Transformer与LLM.md)
 
 ### 第二部分：LLM 应用与推理 Runtime
 
-5. [AI Agent 与 RAG](./从AI基础到端侧部署优化/05_AI_Agent与RAG.md)
-6. [LLM 推理原理](./从AI基础到端侧部署优化/06_LLM推理原理.md)
+5. [LLM 推理原理](./从AI基础到端侧部署优化/05_LLM推理原理.md)
+6. [AI Agent 与 RAG](./从AI基础到端侧部署优化/06_AI_Agent与RAG.md)
 7. [llama.cpp](./从AI基础到端侧部署优化/07_llama.cpp.md)
 8. [vLLM 与 MLC-LLM](./从AI基础到端侧部署优化/08_vLLM与MLC-LLM.md)
 
@@ -50,7 +50,7 @@
 ## 阅读建议
 
 - 初学者建议从第 1 章开始顺序阅读。
-- 熟悉 AI 模型、重点关注部署的读者，可以从第 6 章开始。
+- 熟悉 AI 模型、重点关注部署的读者，可以从第 5 章开始。
 - 从事 Rockchip 平台开发的读者，可以重点阅读第 11～13 章及实战项目。
 - `_archive` 保存早期卡片版与历史稿件，不属于当前教程主线。
 

@@ -1,10 +1,10 @@
-# 第 3 章 Transformer 与 LLM
+# 第 4 章 Transformer 与 LLM
 
 > **所属路线**：AI 学习路线 · 第一部分
 > **本章定位**：从 Language Modeling、Attention、Transformer，一直到 GPT / LLM 的预训练、指令微调与自回归推理
 > **核心教材**：[rasbt/LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch) · [jingyaogong/minimind](https://github.com/jingyaogong/minimind) · [karpathy/nn-zero-to-hero](https://github.com/karpathy/nn-zero-to-hero) · [d2l-ai/d2l-en](https://github.com/d2l-ai/d2l-en)
 > **主要框架**：PyTorch
-> **前置要求**：第 2 章（深度学习与神经网络）已完成
+> **前置要求**：第 2 章（深度学习与神经网络）与第 3 章（PyTorch 与模型框架）已完成
 > **学习边界**：本章解决"LLM 是什么、如何训练、如何推理"；Agent、RAG、llama.cpp、vLLM、MLC-LLM 放到后续章节
 > **资料检查日期**：2026-08-25
 
@@ -12,7 +12,7 @@
 
 ## 本章导读
 
-上一章结束时我们问：能不能设计一种结构，让序列中任意两个位置直接建立关系，并且可以大规模并行训练？**Attention 就是答案，Transformer 把它变成了现实，LLM 把它推到了极限。**
+第 2 章结束时我们问：能不能设计一种结构，让序列中任意两个位置直接建立关系，并且可以大规模并行训练？第 3 章已经把实现这种结构所需的 PyTorch 工具准备好。**Attention 就是答案，Transformer 把它变成了现实，LLM 把它推到了极限。**
 
 学完本章，你应该能够：
 
@@ -860,21 +860,13 @@ Raw Text → 清洗/去重 → Tokenizer → Token Dataset → Pretraining → B
 AI → Machine Learning → Deep Learning → Neural Network → Attention → Transformer → LLM
 ```
 
-接下来的问题不再是"LLM 是怎么构成的"，而是：
+第一部分到此完成。我们已经从神经网络、PyTorch 一路走到 Transformer / LLM。接下来的问题不再是“LLM 是怎么构成的”，而是：
 
-> **怎样把 LLM 变成真正可用的应用和高性能推理系统？**
+> **一个训练好的 LLM 从模型文件加载，到 Prefill、KV Cache、Decode，再到生成 Token，完整推理流程到底如何运行？**
 
-学习重点转向两个方向：
+下一章进入模型执行层：
 
-```text
-LLM
-├── Application：RAG / Tool Calling / Agent
-└── Runtime：llama.cpp / vLLM / MLC-LLM
-```
-
-下一章先落地工具层：
-
-> **[04_PyTorch与模型框架](04_PyTorch与模型框架.md)**
+> **[05_LLM推理原理](05_LLM推理原理.md)**
 
 ---
 
