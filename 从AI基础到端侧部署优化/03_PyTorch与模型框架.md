@@ -8,6 +8,24 @@
 > **学习边界**：本章解决"Framework → Model → Graph → Export → Runtime"的工程链路；量化算法、AI Compiler、GPU Kernel、RKNN/RKLLM 在后续章节深入
 > **资料检查日期**：2026-08-25
 
+## 本章学习实验室
+
+第 3 章沿用第 1 章的五层学习闭环，把“知道框架名词”推进到“能够生成、验证和审计部署工件”：
+
+```text
+阅读讲义 → 完整实验 → 独立练习 → 机器验收 → 真实任务
+```
+
+| 环节 | 入口 | 完成证据 |
+|---|---|---|
+| 阅读讲义 | 当前页面 | 能区分 Framework、Format、Runtime 与 Compiler |
+| 完整实验 | [运行参考 Notebook](../labs/03_pytorch_frameworks/完整实验.ipynb) | Checkpoint、ONNX、ORT 链路运行成功 |
+| 独立练习 | [打开练习 Notebook](../labs/03_pytorch_frameworks/练习.ipynb) | 工件与数值一致性检查全部通过 |
+| 机器验收 | [查看实验室说明](../labs/03_pytorch_frameworks/README.md) | 生成 `exercise_result.json` |
+| 真实任务 | [模型交付包审计](../labs/03_pytorch_frameworks/真实任务_模型交付包审计.md) | Manifest、模型文件和推理证据可复算 |
+
+完整实验展示从训练框架进入部署 Runtime 的正确路径；练习只保留必要脚手架；真实任务要求交付一个可由第三方重新验证的模型包。建议完整实验 90～120 分钟、练习 120～180 分钟、真实任务 3～5 小时。环境、命令与验收标准见[第 3 章实验室导航](../labs/03_pytorch_frameworks/README.md)。
+
 ---
 
 ## 本章导读

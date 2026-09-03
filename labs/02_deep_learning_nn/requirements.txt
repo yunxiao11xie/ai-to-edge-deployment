@@ -1,0 +1,5 @@
+numpy>=1.26,<3
+torch>=2.2,<3
+scikit-learn>=1.4,<2
+jupyterlab>=4,<5
+pytest>=8,<9
