@@ -1,0 +1,6 @@
+numpy>=1.26,<3
+torch>=2.2,<3
+onnx>=1.16,<2
+onnxruntime>=1.18,<2
+jupyterlab>=4,<5
+pytest>=8,<9
