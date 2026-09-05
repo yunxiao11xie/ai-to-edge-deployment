@@ -8,6 +8,62 @@
 > **学习边界**：本章解决"Framework → Model → Graph → Export → Runtime"的工程链路；量化算法、AI Compiler、GPU Kernel、RKNN/RKLLM 在后续章节深入
 > **资料检查日期**：2026-08-25
 
+## 英文术语与读音速查
+
+> **怎么使用这张表**：音标以美式英语为主，`ˈ` 后面的音节需要重读；CPU、EP、IR 等缩写按英文字母逐个读。品牌名、项目名和代码标识采用技术社区中的常见读法。代码里的 `export` 表示“导出”这个动作，因此读作动词 `/ɪkˈspɔːrt/`，重音在后；作名词时才读 `/ˈekspɔːrt/`。
+
+| 英文术语 | 音标 / 常见读法 | 中文翻译 | 本章中的含义 |
+|---|---|---|---|
+| PyTorch | `/ˈpaɪ tɔːrtʃ/`，常读作 “pie-torch” | PyTorch 框架 | 本章主要使用的深度学习训练与推理框架。 |
+| Framework | `/ˈfreɪmwɝːk/` | 框架 | 提供建模、训练、求导、保存等能力的软件系统。 |
+| Model | `/ˈmɑːdəl/` | 模型 | 网络结构、参数以及计算行为的整体。 |
+| Architecture | `/ˈɑːrkətektʃər/` | 架构；模型结构 | 模型由哪些层组成以及这些层如何连接。 |
+| Tensor | `/ˈtensər/` | 张量 | 框架中存放多维数据、权重和中间结果的对象。 |
+| Shape | `/ʃeɪp/` | 形状；维度大小 | Tensor 每个维度的长度。 |
+| Dtype | `/ˈdiː taɪp/`，读作 “D-type” | 数据类型 | Tensor 元素的类型，如 FP32、FP16、INT8。 |
+| Device | `/dɪˈvaɪs/` | 设备 | Tensor 或算子所在的计算设备，如 CPU、GPU、NPU。 |
+| Layout | `/ˈleɪaʊt/` | 内存布局 | 各维度在数据中的排列方式，如 NCHW、NHWC。 |
+| Module | `/ˈmɑːdʒuːl/` | 模块 | PyTorch 中封装层、参数和前向计算的基本单位。 |
+| Parameter | `/pəˈræmɪtər/` | 参数 | 会被训练并由优化器更新的 Tensor。 |
+| Buffer | `/ˈbʌfər/` | 缓冲量 | 随模型保存但通常不参与梯度更新的状态。 |
+| `state_dict` | `/steɪt dɪkt/`，读作 “state dict” | 状态字典 | PyTorch 保存参数和持久缓冲量的键值映射。 |
+| Dataset | `/ˈdeɪtəset/` | 数据集 | 定义如何取得单个训练或评估样本的对象。 |
+| DataLoader | `/ˈdeɪtə ˌloʊdər/` | 数据加载器 | 负责分批、打乱并加载 Dataset 的工具。 |
+| Checkpoint | `/ˈtʃekpɔɪnt/` | 检查点 | 用于恢复训练的模型、优化器、轮次等状态快照。 |
+| Export | 动词 `/ɪkˈspɔːrt/`；名词 `/ˈekspɔːrt/` | 导出；导出结果 | 把框架中的模型转换或捕获为可交付表示；`torch.export` 中按动词读。 |
+| Graph Capture | `/ɡræf ˈkæptʃər/` | 计算图捕获 | 观察模型执行并记录其中 Tensor 运算的过程。 |
+| Graph | `/ɡræf/` | 图；计算图 | 用节点和连线表示计算及依赖关系的结构。 |
+| Node | `/noʊd/` | 节点 | 计算图中的单个运算或数据位置。 |
+| Operator / Op | `/ˈɑːpəreɪtər/`；Op `/ɑːp/` | 算子 | 图中定义“计算什么”的操作，如 MatMul、Add、Softmax。 |
+| Initializer | `/ɪˈnɪʃəlaɪzər/` | 初始化张量 | ONNX 图中保存权重、偏置或常量的 Tensor。 |
+| Metadata | `/ˈmetəˌdeɪtə/` | 元数据 | 描述模型来源、版本、名称等附加信息的数据。 |
+| ONNX | `/ˈɑːnɪks/`，与 “onyx” 同音 | 开放神经网络交换格式 | 跨框架表示模型计算图和权重的开放规范。 |
+| Opset | `/ˈɑːp set/`，读作 “op-set” | 算子集 | 一组 ONNX 算子语义及其版本。 |
+| IR | `/ˌaɪ ˈɑːr/`，逐字母读 | 中间表示 | 框架模型与硬件执行之间便于转换、优化的模型表示。 |
+| Runtime | `/ˈrʌntaɪm/` | 运行时 | 加载模型并在具体硬件上执行计算的引擎。 |
+| Inference | `/ˈɪnfərəns/` | 推理 | 用训练好的模型对新输入执行预测。 |
+| ONNX Runtime / ORT | ONNX `/ˈɑːnɪks/`；ORT `/ˌoʊ ɑːr ˈtiː/` | ONNX 运行时 | 加载和执行 ONNX 模型的跨平台推理引擎。 |
+| Execution Provider / EP | `/ˌeksɪˈkjuːʃən prəˈvaɪdər/`；EP `/ˌiː ˈpiː/` | 执行提供者 | ONNX Runtime 对接 CPU、GPU、NPU 等后端的适配层。 |
+| CPU Fallback | CPU `/ˌsiː piː ˈjuː/`；Fallback `/ˈfɔːlbæk/` | CPU 回退 | 加速后端不支持某算子时，改由 CPU 执行该部分。 |
+| Kernel | `/ˈkɝːnəl/` | 计算内核 | 某个算子针对特定硬件编写的具体实现。 |
+| Graph Optimization | `/ɡræf ˌɑːptəməˈzeɪʃən/` | 图优化 | 对计算图做折叠、消除、重排等优化。 |
+| Operator Fusion | `/ˈɑːpəreɪtər ˈfjuːʒən/` | 算子融合 | 把多个相邻算子合成一次更高效的执行。 |
+| Compiler | `/kəmˈpaɪlər/` | 编译器 | 把模型图变换并生成面向目标硬件的执行形式。 |
+| Compile | `/kəmˈpaɪl/` | 编译 | 执行图优化、Lowering、代码生成等转换过程。 |
+| Converter | `/kənˈvɝːtər/` | 转换器 | 把一种模型格式转换为另一种格式的工具。 |
+| Backend | `/ˈbækend/` | 后端 | 真正承接算子执行、编译或硬件加速的一层。 |
+| Dynamic Shape | `/daɪˈnæmɪk ʃeɪp/` | 动态形状 | 输入维度可在运行时变化的模型形状。 |
+| Static Shape | `/ˈstætɪk ʃeɪp/` | 静态形状 | 导出或编译时已经固定的模型形状。 |
+| NCHW / NHWC | NCHW `/ˌen siː eɪtʃ ˈdʌbəljuː/`；NHWC `/ˌen eɪtʃ ˌdʌbəljuː ˈsiː/` | 通道优先 / 通道靠后布局 | 图像 Tensor 的两种常见维度排列顺序。 |
+| IOBinding | `/ˌaɪ ˈoʊ ˈbaɪndɪŋ/`，读作 “I-O binding” | 输入输出绑定 | 让输入输出直接绑定到设备内存，减少数据复制。 |
+| Benchmark | `/ˈbentʃmɑːrk/` | 基准测试 | 在固定条件下测量模型性能并记录可比较结果。 |
+| Latency | `/ˈleɪtənsi/` | 延迟 | 完成一次或一批推理所需的时间。 |
+| Throughput | `/ˈθruːpʊt/` | 吞吐量 | 单位时间内能够处理的样本或请求数量。 |
+| Quantization | `/ˌkwɑːntəˈzeɪʃən/` | 量化 | 用更低位宽表示权重或激活，以降低存储与计算成本。 |
+| LiteRT | `/ˌlaɪt ɑːr ˈtiː/`，读作 “Lite R-T” | LiteRT 端侧运行时 | 面向移动端和嵌入式设备的模型转换与执行工具链。 |
+| ExecuTorch | `/ˈeksɪkjuː tɔːrtʃ/`，常读作 “execu-torch” | ExecuTorch 端侧运行时 | PyTorch 面向移动端和嵌入式设备的部署栈。 |
+| RKNN | `/ˌɑːr keɪ en ˈen/`，逐字母读 | Rockchip 神经网络格式 / 工具链 | 把模型转换并部署到瑞芯微 NPU 的技术体系。 |
+
 ## 本章学习实验室
 
 第 3 章沿用第 1 章的五层学习闭环，把“知道框架名词”推进到“能够生成、验证和审计部署工件”：
