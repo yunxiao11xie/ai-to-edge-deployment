@@ -564,7 +564,7 @@ Local Qwen
 
 | # | 实验 | 验收标准 |
 |---|---|---|
-| 1 | **最小 RAG**（不依赖 LangChain） | 用你自己的 01~04 学习文档建本地知识库，问"Prefill 和 Decode 有什么区别"能检索到 03 章相关 Chunk——因为你知道正确答案在哪，能人工评估 Retriever |
+| 1 | **最小 RAG**（不依赖 LangChain） | 用你自己的 01～05 章学习文档建本地知识库，问“Prefill 和 Decode 有什么区别”时，能检索到[第 5 章 LLM 推理原理](05_LLM推理原理.md)的相关 Chunk，并根据原文人工评估 Retriever |
 | 2 | Chunk Size 对比 | 分别用 200/500/1000 chars 切块，比较 Recall、Top-K 质量、答案质量 |
 | 3 | Dense vs BM25 | 用技术关键词（Q4_K_M、RKNN_ERR、RMSNorm）对比两种检索，理解各自优势 |
 | 4 | Hybrid Search | Dense Top-10 + BM25 Top-10 → Fusion → Top-10 → Rerank |

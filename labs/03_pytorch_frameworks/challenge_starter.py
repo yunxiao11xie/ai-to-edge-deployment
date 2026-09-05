@@ -5,12 +5,7 @@ from pathlib import Path
 import numpy as np
 import onnxruntime as ort
 import torch
-from torch import nn
-
-class DeliveryMLP(nn.Module):
-    def __init__(self):
-        super().__init__(); self.net=nn.Sequential(nn.Linear(8,16),nn.ReLU(),nn.Linear(16,3))
-    def forward(self,x): return self.net(x)
+from delivery_model import DeliveryMLP
 
 def main():
     torch.manual_seed(42); output_dir=Path("artifacts"); output_dir.mkdir(exist_ok=True)
@@ -18,6 +13,7 @@ def main():
     checkpoint=output_dir/"challenge_model.pth"; onnx_path=output_dir/"challenge_model.onnx"
     # TODO 1：保存 model.state_dict()。
     # TODO 2：导出 ONNX，输入/输出命名为 input/output，并设置 Dynamic Batch，opset_version=17。
+    # 本实验使用 dynamic_axes，显式设置 dynamo=False，以固定导出路径。
     # TODO 3：分别取得 PyTorch 和 ONNX Runtime 输出。
     torch_output=None; ort_output=None
     if torch_output is None or ort_output is None or not checkpoint.exists() or not onnx_path.exists():

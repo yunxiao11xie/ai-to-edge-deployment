@@ -21,7 +21,9 @@
 1. [AI 基础与机器学习](./从AI基础到端侧部署优化/01_AI基础与机器学习.md)
    - [公开实验室](./labs/01_ai_basics_ml/README.md) · [完整实验](./labs/01_ai_basics_ml/完整实验.ipynb) · [练习](./labs/01_ai_basics_ml/练习.ipynb) · [真实任务](./labs/01_ai_basics_ml/真实任务_设备故障预警.md)
 2. [深度学习与神经网络](./从AI基础到端侧部署优化/02_深度学习与神经网络.md)
+   - [公开实验室](./labs/02_deep_learning_nn/README.md) · [完整实验](./labs/02_deep_learning_nn/完整实验.ipynb) · [练习](./labs/02_deep_learning_nn/练习.ipynb) · [真实任务](./labs/02_deep_learning_nn/真实任务_IMU动作识别.md)
 3. [PyTorch 与模型框架](./从AI基础到端侧部署优化/03_PyTorch与模型框架.md)
+   - [公开实验室](./labs/03_pytorch_frameworks/README.md) · [完整实验](./labs/03_pytorch_frameworks/完整实验.ipynb) · [练习](./labs/03_pytorch_frameworks/练习.ipynb) · [真实任务](./labs/03_pytorch_frameworks/真实任务_模型交付包审计.md)
 4. [Transformer 与 LLM](./从AI基础到端侧部署优化/04_Transformer与LLM.md)
 
 ### 第二部分：LLM 应用与推理 Runtime
@@ -55,25 +57,25 @@
 - `_archive` 保存早期卡片版与历史稿件，不属于当前教程主线。
 
 
-## 第 1 章公开实验室
+## 第 1～3 章公开实验室
 
-第 1 章已完整开放一套可运行的学习样板。它不只提供阅读材料，而是把一次学习拆成五个连续环节：
+前三章均已配套完整实验、独立练习、机器验收和真实任务，把一次学习拆成五个连续环节：
 
 ```text
 阅读讲义 → 运行完整实验 → 独立练习 → 机器验收 → 完成真实任务
 ```
 
-| 环节     | 内容                                           | 直接入口                                                                    |
-| -------- | ---------------------------------------------- | --------------------------------------------------------------------------- |
-| 阅读讲义 | 建立 AI、机器学习、训练、推理与评估的知识框架  | [第 1 章 AI 基础与机器学习](./从AI基础到端侧部署优化/01_AI基础与机器学习.md) |
-| 完整实验 | 从头运行回归、分类、聚类与 Q-learning 参考实现 | [完整实验 Notebook](./labs/01_ai_basics_ml/完整实验.ipynb)                   |
-| 独立练习 | 补全四项核心任务，观察错误并解释结果           | [练习 Notebook](./labs/01_ai_basics_ml/练习.ipynb)                           |
-| 机器验收 | 检查真实模型变量、预测结果、指标和学习策略     | [实验室与验收说明](./labs/01_ai_basics_ml/README.md)                         |
-| 真实任务 | 构建设备故障预警原型，提交可复算的预测证据     | [真实任务说明](./labs/01_ai_basics_ml/真实任务_设备故障预警.md)              |
+| 实验室 | 完整实验与练习 | 真实任务 | 验收证据 |
+|---|---|---|---|
+| [第 1 章：AI 基础与机器学习](./labs/01_ai_basics_ml/README.md) | 回归、分类、聚类、Q-learning；[完整实验](./labs/01_ai_basics_ml/完整实验.ipynb) / [练习](./labs/01_ai_basics_ml/练习.ipynb) | [设备故障预警](./labs/01_ai_basics_ml/真实任务_设备故障预警.md) | 固定测试集、逐样本预测、可复算指标与混淆矩阵 |
+| [第 2 章：深度学习与神经网络](./labs/02_deep_learning_nn/README.md) | Autograd、MLP 训练、CNN Shape；[完整实验](./labs/02_deep_learning_nn/完整实验.ipynb) / [练习](./labs/02_deep_learning_nn/练习.ipynb) | [IMU 动作识别](./labs/02_deep_learning_nn/真实任务_IMU动作识别.md) | 模型结构与权重、重新推理的分类指标、实际参数量 |
+| [第 3 章：PyTorch 与模型框架](./labs/03_pytorch_frameworks/README.md) | Checkpoint、ONNX、ONNX Runtime；[完整实验](./labs/03_pytorch_frameworks/完整实验.ipynb) / [练习](./labs/03_pytorch_frameworks/练习.ipynb) | [模型交付包审计](./labs/03_pytorch_frameworks/真实任务_模型交付包审计.md) | 重载权重、图与接口检查、跨 Runtime 数值复算、动态 Batch 实测 |
+
+三个实验室均以 Python 3.10+ 和 CPU 为基础，不要求 GPU。真实任务的工程结论还需要人工检查其分析是否充分。
 
 ### 快速开始
 
-克隆仓库后进入实验目录：
+克隆仓库后选择一个实验目录。下面以第 1 章为例；第 2、3 章分别进入 `labs/02_deep_learning_nn`、`labs/03_pytorch_frameworks`，按各自的 `requirements.txt` 创建独立环境：
 
 ```bash
 cd labs/01_ai_basics_ml
@@ -97,7 +99,7 @@ python -m pip install -r requirements.txt
 python -m jupyter lab
 ```
 
-建议先打开 `完整实验.ipynb`，运行并理解完整流程；随后关闭参考实现，独立完成 `练习.ipynb`。练习通过后，再进入真实任务。详细要求、验收方式和文件说明见[第 1 章实验室导航](./labs/01_ai_basics_ml/README.md)。
+建议从所选实验目录启动 Jupyter，先打开 `完整实验.ipynb`，运行并理解完整流程；随后关闭参考实现，独立完成 `练习.ipynb`。练习通过后，再进入真实任务。详细要求见对应的[第 1 章](./labs/01_ai_basics_ml/README.md)、[第 2 章](./labs/02_deep_learning_nn/README.md)、[第 3 章](./labs/03_pytorch_frameworks/README.md)实验室导航。
 
 > GitHub 页面可以预览 Notebook，但要修改代码、运行单元格和生成验收结果，需要先把仓库克隆到本地或下载后在 Jupyter 中打开。
 

@@ -44,7 +44,9 @@ python -m jupyter lab
 python validate.py --challenge artifacts/challenge_submission.json
 ```
 
-验收器根据固定测试集和逐样本预测重算 Accuracy、Macro-F1 与混淆矩阵，并核对参数量和工程结论。
+真实任务必须同时提交 `challenge_submission.json` 与 `challenge_model.pth`。验收器按 JSON 中的结构描述重建 MLP、严格加载权重，从固定训练集重算标准化统计量，再对固定测试集执行 CPU 推理。逐样本预测、Accuracy、Macro-F1、混淆矩阵和参数量都必须与实际模型一致。
+
+质量线保持 Accuracy ≥ 0.88、Macro-F1 ≥ 0.86、参数量 1～5,000；参数量由加载后的模型核算。工程结论至少 80 个字符，内容质量由人工检查。旧版只有 JSON 的提交需要按更新后的起始代码重新生成。
 
 ## 文件结构
 
@@ -55,6 +57,7 @@ python validate.py --challenge artifacts/challenge_submission.json
 ├─ 练习.ipynb
 ├─ validate.py
 ├─ task_data.py
+├─ imu_model.py             # 可配置 MLP 的重建与权重加载
 ├─ challenge_starter.py
 ├─ 真实任务_IMU动作识别.md
 ├─ requirements.txt
